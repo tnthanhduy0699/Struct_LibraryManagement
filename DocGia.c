@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "DocGia.h"
+#include "Statistic.h"
 
 //1. Print out the list of reader in library
 void PrintReader(struct DocGia reader[MAX_READER], int readerCount)
@@ -113,6 +114,8 @@ int AddReader(struct DocGia reader[MAX_READER], int readerCount)
         }
     } while (reader[readerCount].libraryCardYear < 1900 || reader[readerCount].libraryCardYear > 2024);
 
+    reader[readerCount].expiredCardDate = reader[readerCount].libraryCardDate;
+    reader[readerCount].expiredCardMonth = reader[readerCount].libraryCardMonth;
 	reader[readerCount].expiredCardYear = reader[readerCount].libraryCardYear + 4;
 
     //Increase current reader number after adding new reader
@@ -144,8 +147,8 @@ int AddReader(struct DocGia reader[MAX_READER], int readerCount)
 		reader[i].libraryCardDate,
 		reader[i].libraryCardMonth,
 		reader[i].libraryCardYear,
-		reader[i].libraryCardDate,
-		reader[i].libraryCardMonth,
+		reader[i].expiredCardDate,
+		reader[i].expiredCardMonth,
 		reader[i].expiredCardYear);
     }
     fprintf(file, "+--------+--------------------------+----------------+---------------------+-----------+---------------------------+---------------+----------------+------------------+\n");
@@ -314,8 +317,8 @@ void EditReaderInfo(struct DocGia reader[MAX_READER], int readerCount)
 		reader[i].libraryCardDate,
 		reader[i].libraryCardMonth,
 		reader[i].libraryCardYear,
-		reader[i].libraryCardDate,
-		reader[i].libraryCardMonth,
+		reader[i].expiredCardDate,
+		reader[i].expiredCardMonth,
 		reader[i].expiredCardYear);
     }
     fprintf(file, "+--------+--------------------------+----------------+---------------------+-----------+---------------------------+---------------+----------------+------------------+\n");
@@ -388,8 +391,8 @@ int DeleteReader(struct DocGia reader[MAX_READER], int readerCount)
 		reader[i].libraryCardDate,
 		reader[i].libraryCardMonth,
 		reader[i].libraryCardYear,
-		reader[i].libraryCardDate,
-		reader[i].libraryCardMonth,
+		reader[i].expiredCardDate,
+		reader[i].expiredCardMonth,
 		reader[i].expiredCardYear);
     }
     fprintf(file, "+--------+--------------------------+----------------+---------------------+-----------+---------------------------+---------------+----------------+------------------+\n");
@@ -445,8 +448,8 @@ void SearchReaderByID(struct DocGia reader[MAX_READER], int readerCount)
 		reader[i].libraryCardDate,
 		reader[i].libraryCardMonth,
 		reader[i].libraryCardYear,
-		reader[i].libraryCardDate,
-		reader[i].libraryCardMonth,
+		reader[i].expiredCardDate,
+		reader[i].expiredCardMonth,
 		reader[i].expiredCardYear);
 
         //found will be increased after the ID is found.
@@ -460,10 +463,11 @@ void SearchReaderByID(struct DocGia reader[MAX_READER], int readerCount)
     }
     else
     {
+        //Print out table footer after searching is complete
         printf("+--------+--------------------------+----------------+---------------------+-----------+---------------------------+---------------+----------------+------------------+\n");
         if (found > 1)
         {
-            printf("Found %d reader having the same identification number!\n", found);
+            printf("Found %d readers having the same identification number!\n", found);
         } else
         {
             printf("Found the reader!\n");
@@ -518,8 +522,8 @@ void SearchReaderByName(struct DocGia reader[MAX_READER], int readerCount)
 		reader[i].libraryCardDate,
 		reader[i].libraryCardMonth,
 		reader[i].libraryCardYear,
-		reader[i].libraryCardDate,
-		reader[i].libraryCardMonth,
+		reader[i].expiredCardDate,
+		reader[i].expiredCardMonth,
 		reader[i].expiredCardYear);
 
         //found will be increased after the ID is found.
@@ -533,6 +537,7 @@ void SearchReaderByName(struct DocGia reader[MAX_READER], int readerCount)
     }
     else
     {
+        //Print out table footer after searching is complete
         printf("+--------+--------------------------+----------------+---------------------+-----------+---------------------------+---------------+----------------+------------------+\n");
         if (found > 1)
         {
@@ -558,4 +563,40 @@ void ReaderStatistic(struct DocGia reader[MAX_READER], int readerCount)
 	printf("Total number of reader: %d\n", readerCount);
 	//Call the function PrintReader again to show the detail as table view.
 	PrintReader(reader, readerCount);
+}
+//18. Count the number of reader by gender
+void CountReaderByGender(struct DocGia reader[MAX_READER], struct ThongKe statistic[MAX_READER], int readerCount)
+{
+	int genderCount = 0;
+
+	for (int i = 0; i < readerCount; i++)
+	{
+		int found = 0;
+		// Check that readerGender is existed in statistic[j].typeGender or not? If YES, increase the statistic[j].genderAmount
+        for (int j = 0; j < genderCount; j++)
+		{
+			if (strcmp(reader[i].readerGender, statistic[j].typeGender) == 0)
+			{
+				statistic[j].genderAmount++;
+				found = 1;
+				break;
+			}
+		}
+		// if NO, add reader[i].readerGender into statistic.typeGender
+        if (found == 0)
+		{
+			strcpy(statistic[genderCount].typeGender, reader[i].readerGender);
+			statistic[genderCount].genderAmount = 1;
+			genderCount++;
+		}
+	}
+	printf("Statistic table: \n");
+	printf("+-----------+--------+\n");
+	printf("|  Gender   | Amount |\n");
+	printf("+-----------+--------+\n");
+	for (int i = 0; i < genderCount; i++)
+	{
+		printf("| %-9s | %03d    |\n", statistic[i].typeGender, statistic[i].genderAmount);
+	}
+	printf("+-----------+--------+\n");
 }

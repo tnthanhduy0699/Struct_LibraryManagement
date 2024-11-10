@@ -1,3 +1,6 @@
+#include "Statistic.h"
+
+#define MAX_READER 100
 #define MAX_BOOK 100
 #define MAX_NAME_LEN 100
 
@@ -28,3 +31,5 @@ void SearchBookByISBN(struct Sach book[MAX_BOOK], int bookCount);
 void SearchBookByName(struct Sach book[MAX_BOOK], int bookCount);
 //15. Count the total number of book at this time
 void BookStatistic(struct Sach book[MAX_BOOK], int bookCount);
+// 16. Count the total number of book by book type
+void CountBookByType(struct Sach book[MAX_BOOK], struct ThongKe statistic[MAX_READER] , int bookCount);

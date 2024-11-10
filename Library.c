@@ -8,6 +8,7 @@ Code editor: Visual Studio Code.
 #include <string.h>
 #include "DocGia.h"
 #include "Sach.h"
+#include "Statistic.h"
 // #include "LapPhieu.h"
 
 #define MAX_READER 100
@@ -16,8 +17,9 @@ Code editor: Visual Studio Code.
 
 int main(void)
 {
-    struct DocGia reader[MAX_READER];
+	struct DocGia reader[MAX_READER];
     struct Sach book[MAX_BOOK];
+	struct ThongKe statistic[MAX_READER];
 	int readerCount = 0;
 	int bookCount = 0;
 	//Mang chua thong tin dung de lap phieu muon/tra sach
@@ -118,15 +120,13 @@ int main(void)
 				BookStatistic(book, bookCount);
 				break;
 			case 16:
-				printf("This function is still in development phase!\n");
-				// ThongKeSachTheoTheLoai(bookType, bookCount);
+				CountBookByType(book, statistic, bookCount);
 				break;
 			case 17:
 				ReaderStatistic(reader, readerCount);
 				break;
 			case 18:
-				printf("This function is still in development phase!\n");
-				// ThongKeDocGiaTheoGioiTinh(readerGender, readerCount);
+				CountReaderByGender(reader, statistic, readerCount);
 				break;
 			case 19:
 				printf("This function is still in development phase!\n");

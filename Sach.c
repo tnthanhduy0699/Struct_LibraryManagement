@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "Sach.h"
+#include "Statistic.h"
 
 //7. Print out the list of book in library
 void PrintBook(struct Sach book[MAX_BOOK], int bookCount)
@@ -420,4 +421,40 @@ void BookStatistic(struct Sach book[MAX_BOOK], int bookCount)
 	printf("Total number of book: %d\n", bookCount);
 	//Call the function PrintBook again to show the detail as table view.
 	PrintBook(book, bookCount);
+}
+// 16. Count the total number of book by book type
+void CountBookByType(struct Sach book[MAX_BOOK], struct ThongKe statistic[MAX_READER] , int bookCount)
+{
+	int typeCount = 0;
+
+	for (int i = 0; i < bookCount; i++)
+	{
+		int found = 0;
+		// Check that bookType is existed in statistic[j].typeBook or not? If YES, increase the statistic[j].typeAmount
+        for (int j = 0; j < typeCount; j++)
+		{
+			if (strcmp(book[i].bookType, statistic[j].typeBook) == 0)
+			{
+				statistic[j].typeAmount ++;
+				found = 1;
+				break;
+			}
+		}
+		// if NO, add book[i].bookType into statistic.typeBook
+        if (found == 0)
+		{
+			strcpy(statistic[typeCount].typeBook, book[i].bookType);
+			statistic[typeCount].typeAmount = 1;
+			typeCount++;
+		}
+	}
+	printf("Statistic table: \n");
+	printf("+-----------+--------+\n");
+	printf("| Book type | Amount |\n");
+	printf("+-----------+--------+\n");
+	for (int i = 0; i < typeCount; i++)
+	{
+		printf("| %-9s | %03d    |\n", statistic[i].typeBook, statistic[i].typeAmount);
+	}
+	printf("+-----------+--------+\n");
 }

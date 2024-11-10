@@ -1,3 +1,5 @@
+#include "Statistic.h"
+
 #define MAX_READER 100
 #define MAX_NAME_LEN 100
 
@@ -16,6 +18,8 @@ struct DocGia
     int libraryCardDate;
     int libraryCardMonth;
     int libraryCardYear;
+    int expiredCardDate;
+    int expiredCardMonth;
     int expiredCardYear;
 };
 //Functions declaration
@@ -33,3 +37,5 @@ void SearchReaderByID(struct DocGia reader[MAX_READER], int readerCount);
 void SearchReaderByName(struct DocGia reader[MAX_READER], int readerCount);
 //17. Count the total number of reader at this time
 void ReaderStatistic(struct DocGia reader[MAX_READER], int readerCount);
+//18. Count the number of reader by gender
+void CountReaderByGender(struct DocGia reader[MAX_READER], struct ThongKe statistic[MAX_READER] , int readerCount);
