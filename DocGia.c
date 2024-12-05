@@ -6,8 +6,7 @@
 //1. Print out the list of reader in library
 void PrintReader(struct DocGia reader[MAX_READER], int readerCount)
 {
-    //Checking current reader amount, if amount = 0, there is no reader
-	if (readerCount == 0)
+    if (readerCount == 0)
 	{
 		printf("There is no reader in the library!\n");
 		return;
@@ -567,7 +566,7 @@ void ReaderStatistic(struct DocGia reader[MAX_READER], int readerCount)
 //18. Count the number of reader by gender
 void CountReaderByGender(struct DocGia reader[MAX_READER], struct ThongKe statistic[MAX_READER], int readerCount)
 {
-	int genderCount = 0;
+    int genderCount = 0;
 
 	for (int i = 0; i < readerCount; i++)
 	{

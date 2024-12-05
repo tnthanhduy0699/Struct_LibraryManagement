@@ -4,6 +4,8 @@
 #define MAX_BOOK 100
 #define MAX_NAME_LEN 100
 
+#ifndef SACH_H
+#define SACH_H
 //Create the struct called Sach
 struct Sach
 {
@@ -16,6 +18,9 @@ struct Sach
     int bookPrice;
     int bookAmount;
 };
+
+#endif
+
 //Functions declaration
 //7. Print out list of books in library
 void PrintBook(struct Sach book[MAX_BOOK], int bookCount);

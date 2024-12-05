@@ -9,26 +9,22 @@ Code editor: Visual Studio Code.
 #include "DocGia.h"
 #include "Sach.h"
 #include "Statistic.h"
-// #include "LapPhieu.h"
+#include "Ticket.h"
 
 #define MAX_READER 100
 #define MAX_BOOK 100
 #define MAX_NAME_LEN 100
+#define MAX_TICKET 100
 
 int main(void)
 {
 	struct DocGia reader[MAX_READER];
     struct Sach book[MAX_BOOK];
 	struct ThongKe statistic[MAX_READER];
+	struct Ticket borrowTicker[MAX_BORROW];
 	int readerCount = 0;
 	int bookCount = 0;
-	//Mang chua thong tin dung de lap phieu muon/tra sach
-	int borrowDate[MAX_BOOK];
-	int borrowMonth[MAX_BOOK];
-	int borrowYear[MAX_BOOK];
-	int returnPlanedDate[MAX_BOOK];
-	int returnPlanedMonth[MAX_BOOK];
-	int returnPlanedYear[MAX_BOOK];
+	int borrowCount = 0;
 
     int opt;
 	do
@@ -42,12 +38,12 @@ int main(void)
 		printf(" 6.  Search readers by name\n");
 		printf(" 7.  Print out the list of books\n");
 		printf(" 8.  Add a new book\n");
-		printf(" 9.  Edit the information of book\n");
+		printf(" 9.  Edit the information of books\n");
 		printf(" 10. Delete a book\n");
 		printf(" 11. Search books by ISBN\n");
 		printf(" 12. Search books by name\n");
-		printf(" 13. Create the borrowing book form\n");
-		printf(" 14. Create the returning book form \n");
+		printf(" 13. Create the borrowing books form\n");
+		printf(" 14. Create the returning books form \n");
 		printf(" 15. Count the number of books in the library\n");
 		printf(" 16. Count the number of books by type\n");
 		printf(" 17. Count the number of readers in the library\n");
@@ -110,8 +106,7 @@ int main(void)
 				SearchBookByName(book, bookCount);
 				break;
 			case 13:
-				printf("This function is still in development phase!\n");
-				// LapPhieuMuonSach(readerNo, borrowDate, borrowMonth, borrowYear, bookISBN, returnPlanedDate, returnPlanedMonth, returnPlanedYear, readerCount, bookCount);
+				borrowCount = CreateBorrowTicket(borrowTicker, borrowCount, book, readerCount, bookCount);
 				break;
 			case 14:
 				printf("This function is still in development phase!\n");
