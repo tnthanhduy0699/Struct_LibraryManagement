@@ -118,13 +118,6 @@ int CreateBorrowTicket(struct Ticket borrowTicket[], int borrowCount, struct Sac
         }
          } while (borrowTicket[borrowCount].borrowYear < 1900 || borrowTicket[borrowCount].borrowYear > 2024);
 
-
-        // printf("Enter borrow day (DD MM YYYY): ");
-        // scanf("%d %d %d", 
-        //       &borrowTicket[borrowCount].borrowDate, 
-        //       &borrowTicket[borrowCount].borrowMonth, 
-        //       &borrowTicket[borrowCount].borrowYear);
-
         //Calculate the expected return date
         int tempDate = borrowTicket[borrowCount].borrowDate + 7;
         int tempMonth = borrowTicket[borrowCount].borrowMonth;
